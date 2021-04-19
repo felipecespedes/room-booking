@@ -1,46 +1,87 @@
-# Getting Started with Create React App
+# Room Booking
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+## Getting started
+The live demo can be accessed [here](https://felipecespedes-room-booking.netlify.app/)
 
-## Available Scripts
+### Credentials
+#### Users: 
+**username:** You can use any username starting by `user` followed of digits, e.g `user1`, `user2`, `user3`  
+**password:** 123456
+#### Companies:
+**username:** coke  
+**password:** 123456  
 
-In the project directory, you can run:
+**username:** pepsi  
+**password:** 123456
 
-### `yarn start`
+- As a user you can book meeting rooms for 1 hour
+- As a company you can see who have booked your meeting rooms
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
+## High level architecture
+The main components of the project are the following:
 
-The page will reload if you make edits.\
-You will also see any lint errors in the console.
+### Users
+- They can be of 2 types, `users` or `companies`
+- `users` can book meeting rooms
+- `companies` can see who have booked their meeting rooms
 
-### `yarn test`
+### Login
+- It uses a dummy API service in order to validate credentials and give access to the system
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+### Room booking
+- It allows to select a company
+- It allows to book any meeting room by 1 hour
+- It allows to cancel any room reservation
+- **Restrictions:**
+  - You cannot book time slots that were booked by other users
 
-### `yarn build`
+### Company dashboard
+- It displays the rooms of the company and shows who have booked its meeting rooms
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+### App Context
+- It keeps the state of the logged-in user, companies and schedules data
+- Exposes methods for manipulating the logged-in user, companies and schedules data
+- It uses a custom hook (*useStorage*) to save and retrieve data from the local storage
+- It uses a dummy API service in order to get the companies data
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+## Used technologies and libraries
+- [React](https://reactjs.org/)
+- [TypeScript](https://www.typescriptlang.org/)
+- [Tailwind CSS](https://tailwindcss.com/)
+- [Local storage](https://developer.mozilla.org/en-US/docs/Web/API/Window/localStorage)
+- [Day.js](https://day.js.org/)
+- [react-schedule-selector](https://github.com/bibekg/react-schedule-selector)
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+## Improvements for production
+- There should be a real backend providing the companies, login and schedules data
+- The scheduler could be optimized using `React.memo` and `Virtual Lists`
+- A routing system could be implemented
+- Include an alerting system in case an user want to book the same time in different meeting rooms
+- The backend could validate when booking a time slot in order to prevent conflict in case 2 users select the same time slot
+- There are data that can be externalised such as the date of the event, the name of the event
+- Error handling: Validate and treat API errors in a meaningful way
+- Include tooltips for letting the user know when certain events happened such as `Room was booked`, `Reservation was cancelled`, `The time of the reservations was updated successfully`
+- Implement unit testing and better linting tools
 
-### `yarn eject`
+## Screenshots
 
-**Note: this is a one-way operation. Once you `eject`, you can’t go back!**
+**Rooom booking**
+![room booking](https://github.com/felipecespedes/room-booking/blob/main/screenshots/room-booking.png)
 
-If you aren’t satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+**Company dashboard**
+![company dashboard](https://github.com/felipecespedes/room-booking/blob/main/screenshots/company-dashboard.png)
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you’re on your own.
+**Login**
+![login](https://github.com/felipecespedes/room-booking/blob/main/screenshots/login.png)
 
-You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
+## Development
+For running the project locally:
+```bash
+git clone https://github.com/felipecespedes/room-booking.git
+cd room-booking
+yarn
+yarn start
+```
 
-## Learn More
-
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
-
-To learn React, check out the [React documentation](https://reactjs.org/).
+## Authors
+- [Felipe Céspedes](https://www.felipecespedes.co/)
